@@ -51,7 +51,7 @@ const CartItems = ({ items }: { items: CartItem[] }) => {
       ? (<>
           <p className="my-4 text-body font-semibold flex items-center justify-between">
             <span>Total</span>
-            <span className="text-3xl font-bold">${(total / 100).toFixed(2)}</span>
+            <span className="text-3xl font-bold">${(total).toFixed(2)}</span>
           </p>
           <p className="my-4 flex items-center gap-x-4 p-4 rounded-b-md text-body text-sm bg-light">
             <Image src="./assets/images/icon-carbon-neutral.svg" alt="Carbon neutral icon" width={20} height={20} />
@@ -71,7 +71,15 @@ const CartItems = ({ items }: { items: CartItem[] }) => {
 
 const CardItem = (item: CartItem) => {
   const { removeItem } = useCart()
-  return (<div className="flex justify-between items-center py-3 border-b border-light">
+  return (<div className="flex justify-between items-center py-3 border-b border-light gap-4">
+    <Image 
+      src={`/assets/images/${item.image.thumbnail}.jpg`} 
+      alt={item.name}  
+      width={50}
+      height={50} 
+      object-fit="cover"  
+      className="rounded"
+    />
     <div className="text-xs font-semibold">
       <p className="text-body text-sm font-semibold mb-2">{item.name}</p>
       <p className="flex items-center gap-x-3">
@@ -79,7 +87,7 @@ const CardItem = (item: CartItem) => {
           {item.quantity}x 
         </span>
         <span className="text-x-light">@ ${item.price}</span>
-        <span className="text-light">${((item.price * item.quantity) / 100).toFixed(2)}</span>
+        <span className="text-light">${(item.price * item.quantity).toFixed(2)}</span>
       </p>
     </div>
     <Button icon="pi pi-times-circle" rounded text severity="danger" aria-label="Cancel" onClick={() => removeItem(item.id)} className="text-red-500 text-sm" />

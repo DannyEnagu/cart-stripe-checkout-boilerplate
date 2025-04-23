@@ -54,6 +54,10 @@ body {
   background: var(--background);
 }
 
+.bg-500 {
+  background: var(--color-red-500);
+}
+
 .bg-light {
   background: var(--color-rose-50);
 }

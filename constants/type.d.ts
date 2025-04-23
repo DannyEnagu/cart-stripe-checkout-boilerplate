@@ -1,22 +1,19 @@
 
 type ProductImage = {
-  thumbnail: string,
-  mobile: string,
-  tablet: string,
+  thumbnail: string;
+  mobile: string;
+  tablet: string;
   desktop: string
 }
 
 export interface Product {
-  id: string
-  name: string
-  price: number
-  image: ProductImage
+  id: string;
+  name: string;
+  price: number;
+  image: ProductImage;
+  category: string;
 }
 
-export interface CartItem {
-  id: string
-  name: string
-  price: number
-  quantity: number
-  image: ProductImage
+export interface CartItem extends Product {
+  quantity: number;
 }
