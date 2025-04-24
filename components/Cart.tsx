@@ -15,6 +15,7 @@ export default function Cart() {
   return (
     <div>
       {/* Mobile Cart */}
+      {/* Popover Cart */}
       <span className="lg:hidden">
         <Button
           aria-label="Cart"
@@ -71,7 +72,7 @@ const CartItems = ({ items }: { items: CartItem[] }) => {
 
 const CardItem = (item: CartItem) => {
   const { removeItem } = useCart()
-  return (<div className="flex justify-between items-center py-3 border-b border-light gap-4">
+  return (<div className="flex items-center py-3 border-b border-light gap-4">
     <Image 
       src={`/assets/images/${item.image.thumbnail}.jpg`} 
       alt={item.name}  
@@ -80,7 +81,7 @@ const CardItem = (item: CartItem) => {
       object-fit="cover"  
       className="rounded"
     />
-    <div className="text-xs font-semibold">
+    <div className="text-xs font-semibold flex-1/2">
       <p className="text-body text-sm font-semibold mb-2">{item.name}</p>
       <p className="flex items-center gap-x-3">
         <span className="text-500 text-sm">

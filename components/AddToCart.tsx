@@ -10,13 +10,13 @@ interface CartItem extends Product {
 
 export const AddToCart = ({ item }: { item: CartItem }) => {
   const { addItem, decreaseQuantity, removeItem } = useCart();
-  // const [productCount, setProductCount] = useState(0)
 
   const increaseItem = () => {
     addItem(item)
   };
 
   const decreaseItem = () => {
+    // Remove Item from cart
     if (item.quantity === 1) {
       removeItem(item.id)
       return;
@@ -24,7 +24,7 @@ export const AddToCart = ({ item }: { item: CartItem }) => {
     decreaseQuantity(item.id)
   };
 
-  const addProductToCart = () => {
+  const addItemToCart = () => {
     addItem(item)
   };
 
@@ -57,7 +57,7 @@ export const AddToCart = ({ item }: { item: CartItem }) => {
     rounded
     outlined
     className="!text-sm !bg-white text-primary !font-bold !py-2"
-    onClick={() => addProductToCart()}
+    onClick={() => addItemToCart()}
     >
     <Image src="./assets/images/icon-add-to-cart.svg" alt="Add to cart icon" width={20} height={20} />
     <span className="ml-2">Add to Cart</span>

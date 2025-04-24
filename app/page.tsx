@@ -19,7 +19,7 @@ export default function Home() {
             />
           ))}
         </div>
-       {/* Desktop Only cart */}
+       {/* Desktop Only Cart */}
       </main>
        <aside className="hidden lg:block">
         <Cart />

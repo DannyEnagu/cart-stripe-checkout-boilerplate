@@ -1,8 +1,21 @@
-import { useCart } from "@/store/cart-store"
-import { Button } from "primereact/button"
+'use client';
+import { Toast } from 'primereact/toast';
+import { useCart } from "@/store/cart-store";
+import { Button } from "primereact/button";
+import { useRef } from 'react';
 
 export default function Checkout() {
-  const { items } = useCart()
+  const toast = useRef<Toast>(null);
+  const { items } = useCart();
+
+  const showToast = (severity: 'success' | 'error' , detail: string ) => {
+    toast.current?.show({
+      severity,
+      summary: severity === 'success' ? 'Success' : 'Error',
+      detail,
+      life: 5000
+    });
+}
 
   const handleCheckout = async () => {
     try {
@@ -10,19 +23,22 @@ export default function Checkout() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ cartItems: items }),
-      })
-      const data = await res.json()
-      console.log(data, 'Payment data')
+      });
+      const data = await res.json();
       if (data?.isSuccess) {
-        window.location.href = data.url
+        showToast('success', data.message)
+        window.location.href = data.url;
+        return
       }
+      showToast('error', data.message)
     } catch (error) {
-      console.log(error, 'Error Confirming payment')
+      console.error(error, 'Error Confirming payment');
     }
-  }
+  };
 
   return (
     <div>
+      <Toast ref={toast} />
       <h1 className="text-body font-semibold mb-4">Confirm Your Order</h1>
       <Button
         label="Pay with Stripe"

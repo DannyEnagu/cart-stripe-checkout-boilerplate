@@ -1,10 +1,13 @@
 import Stripe from 'stripe'
 import { CartItem } from '@/constants/type'
 import { NextResponse } from 'next/server';
+import { headers } from 'next/headers'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2025-03-31.basil' })
 
 export async function POST(request: Request) {
+  const headersList = await headers()
+  const origin = headersList.get('origin')
   if (request.method === 'POST') {
     try {
       const { cartItems } = await request.json();
@@ -17,14 +20,14 @@ export async function POST(request: Request) {
             currency: 'usd',
             product_data: {
               name: item.name,
-              images: [item.image],
+              images: [item.image.desktop],
             },
-            unit_amount: item.price,
+            unit_amount: Math.round(item.price),
           },
           quantity: item.quantity,
         })),
-        success_url: `${request.headers.get('origin')}`,
-        cancel_url: `${request.headers.get('origin')}`,
+        success_url: `${origin}`,
+        cancel_url: `${origin}`,
       })
 
       return NextResponse.json({
